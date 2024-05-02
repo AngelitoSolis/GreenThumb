@@ -14,14 +14,7 @@ void main() async {
   );
 
   runApp(MyApp());
-  // const TextStyle appTextStyle = TextStyle(
-  //   fontFamily: GoogleFonts.aBeeZeeTextTheme({
 
-  //   }), // Replace with your desired font family
-  //   fontSize: 16.0, // Adjust font size as needed
-  //   fontWeight: FontWeight.normal, // Adjust font weight as needed
-  //   color: Colors.black,
-  // );
 }
 
 class MyApp extends StatelessWidget {

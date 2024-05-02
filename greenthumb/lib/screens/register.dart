@@ -46,7 +46,7 @@ class _registerState extends State<register> {
           .createUserWithEmailAndPassword(
               email: email.text, password: password.text);
       String user_id = userCredential.user!.uid;
-      await FirebaseFirestore.instance.collection("Data").doc(user_id).set({
+      await FirebaseFirestore.instance.collection("Info").doc(user_id).set({
         'firstname': first.text,
         'lastname': last.text,
         'email': email.text,
@@ -86,44 +86,39 @@ class _registerState extends State<register> {
                 ),
                 Gap(20),
                 TextFormField(
-                    controller: first,
-                    decoration: InputDecoration(
-                      labelText: 'First Name',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Required.';
-                      }
-                    }),
-                Gap(15),
-                TextFormField(
-                    controller: last,
-                    decoration: InputDecoration(
-                      labelText: 'Last Name',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Required.';
-                      }
-                    }),
-                Gap(15),
-                TextFormField(
-                  controller: email,
+                  controller: first,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Required.';
+                    }
+                  },
                   decoration: InputDecoration(
-                    labelText: 'Email',
+                    labelText: 'First Name',
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                ),
+                Gap(15),
+                TextFormField(
+                  controller: last,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Required.';
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Last Name',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                Gap(15),
+                TextFormField(
+                  controller: email,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Required.';
@@ -132,42 +127,43 @@ class _registerState extends State<register> {
                       return 'Invalid email';
                     }
                   },
-                ),
-                Gap(15),
-                TextFormField(
-                    controller: password,
-                    obscureText: _obscurePassword,
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        onPressed: _togglePasswordVisibility,
-                      ),
-                      labelText: 'Password',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Required.';
-                      }
-                    }),
-                Gap(15),
-                TextFormField(
-                  controller: confirm,
-                  obscureText: _obscurePassword,
                   decoration: InputDecoration(
-                    labelText: 'Confirm Password',
+                    labelText: 'Email',
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                ),
+                Gap(15),
+                TextFormField(
+                  controller: password,
+                  obscureText: _obscurePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Required.';
+                    }
+                  },
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: _togglePasswordVisibility,
+                    ),
+                    labelText: 'Password',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                Gap(15),
+                TextFormField(
+                  controller: confirm,
+                  obscureText: _obscurePassword,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Required.';
@@ -177,6 +173,13 @@ class _registerState extends State<register> {
                       return 'Passwords do not match.';
                     }
                   },
+                  decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                 ),
                 Gap(25),
                 SizedBox(

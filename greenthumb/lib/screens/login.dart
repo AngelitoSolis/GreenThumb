@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,19 +47,24 @@ class _LoginState extends State<Login> {
         User? user = FirebaseAuth.instance.currentUser;
         String userID = user!.uid;
 
+        // Dismiss the progress dialog
+        Navigator.pop(context);
+
         Navigator.of(context).push(CupertinoPageRoute(
             builder: (ctx) => HomePage(
                   userid: userID,
                 )));
         print(userID);
       } catch (e) {
+        // Dismiss the progress dialog
+        Navigator.pop(context);
+
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Error'),
-              content:
-                  Text('An error occurred during login. Please try again.'),
+              content: Text('Email or Password is incorrect!.'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -104,6 +110,14 @@ class _LoginState extends State<Login> {
                   Gap(35),
                   TextFormField(
                     controller: username,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required.';
+                      }
+                      if (!EmailValidator.validate(value)) {
+                        return 'Invalid email';
+                      }
+                    },
                     decoration: InputDecoration(
                       labelText: 'Email',
                       border: OutlineInputBorder(
@@ -111,17 +125,16 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     controller: password,
                     obscureText: _obscurePassword,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                    },
                     decoration: InputDecoration(
                       labelText: 'Password',
                       suffixIcon: IconButton(
@@ -137,11 +150,6 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                    },
                   ),
                   Gap(45),
                   SizedBox(

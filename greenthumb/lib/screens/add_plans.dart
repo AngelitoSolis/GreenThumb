@@ -139,8 +139,9 @@ class _AddPlansState extends State<AddPlans> {
                       // Store base64 string in Firestore
                       await FirebaseFirestore.instance
                           .collection('plants')
-                          .doc(widget.user_ID)
-                          .set({
+                      
+                          .add({
+                        'userID': widget.user_ID,
                         'name': plantName,
                         'type': plantType,
                         'image': base64Image,

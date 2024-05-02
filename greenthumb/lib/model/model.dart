@@ -22,7 +22,7 @@ class Plant {
     required this.decription,
   });
 
-  //List of Plants data
+ 
   static List<Plant> plantList = [
     Plant(
       plantId: 0,
