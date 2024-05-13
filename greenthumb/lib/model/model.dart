@@ -22,19 +22,7 @@ class Plant {
     required this.decription,
   });
 
- 
   static List<Plant> plantList = [
-    Plant(
-      plantId: 0,
-      category: 'Indoor',
-      plantName: 'Aloe Vera',
-      size: 'Small',
-      humidity: 40,
-      temperature: '55 - 85',
-      imageURL: 'assets/images/aloev.png',
-      decription:
-          'Aloe is a cactus-like plant that grows in hot, dry climates. It is cultivated in subtropical regions around the world, including the southern border areas of Texas, New Mexico, Arizona, and California.',
-    ),
     Plant(
       plantId: 1,
       category: 'Outdoor',

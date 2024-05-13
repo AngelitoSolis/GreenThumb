@@ -2,16 +2,15 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:greenthumb/model/model.dart';
 import 'package:greenthumb/screens/add_plans.dart';
 import 'package:greenthumb/screens/details.dart';
-import 'package:greenthumb/screens/login.dart';
+
 import 'package:greenthumb/screens/plans.dart';
+import 'package:greenthumb/screens/profile.dart';
 
 import 'package:page_transition/page_transition.dart';
 
@@ -66,12 +65,11 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: IconButton(
-                    onPressed: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (ctx) => Login()));
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (ctx) => ProfilePage()));
                     },
-                    icon: Icon(Icons.logout),
+                    icon: Icon(Icons.person),
                     iconSize: 35,
                   ),
                 ),
@@ -101,7 +99,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: size.height * .3,
+              height: size.height * .28,
               child: ListView.builder(
                   itemCount: _plantList.length,
                   scrollDirection: Axis.horizontal,

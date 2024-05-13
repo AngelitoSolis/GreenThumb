@@ -6,6 +6,7 @@ import 'package:greenthumb/firebase_options.dart';
 import 'package:greenthumb/screens/home.dart';
 
 import 'package:greenthumb/screens/login.dart';
+import 'package:greenthumb/screens/onboarding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +15,6 @@ void main() async {
   );
 
   runApp(MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             String userID = snapshot.data!.uid;
             return HomePage(userid: userID);
           }
-          return Login();
+          return OnboardingScreen();
         },
       ),
     );
