@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:greenthumb/model/const.dart';
+import 'package:greenthumb/screens/favorite.dart';
 import 'package:greenthumb/screens/login.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -71,7 +73,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          userData['email'] ?? 'johndoe@gmail.com',
+                          userData['email'] ?? '',
                           style: TextStyle(
                             color: Colors.black.withOpacity(.3),
                           ),
@@ -97,9 +99,16 @@ class ProfilePage extends StatelessWidget {
                         icon: Icons.settings,
                         title: 'Settings',
                       ),
-                      ProfileWidget(
-                        icon: Icons.notifications,
-                        title: 'Notifications',
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) =>
+                                  FavoritesPage(userid: user!.uid)));
+                        },
+                        child: ProfileWidget(
+                          icon: Icons.favorite,
+                          title: 'My Favorites',
+                        ),
                       ),
                       ProfileWidget(
                         icon: Icons.chat,

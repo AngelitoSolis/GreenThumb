@@ -2,16 +2,14 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:greenthumb/model/model.dart';
-import 'package:greenthumb/screens/add_plans.dart';
-import 'package:greenthumb/screens/details.dart';
+import 'package:greenthumb/screens/add_plants.dart';
 
+import 'package:greenthumb/screens/details.dart';
 import 'package:greenthumb/screens/plans.dart';
 import 'package:greenthumb/screens/profile.dart';
-
 import 'package:page_transition/page_transition.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,6 +31,14 @@ class _HomePageState extends State<HomePage> {
         .collection('plants')
         .where('userID', isEqualTo: widget.userid)
         .snapshots();
+  }
+
+  void _toggleFavorite(DocumentSnapshot<Map<String, dynamic>> document) {
+    bool currentFavoriteStatus = document.data()?['isFavorite'] ?? false;
+    FirebaseFirestore.instance
+        .collection('plants')
+        .doc(document.id)
+        .update({'isFavorite': !currentFavoriteStatus});
   }
 
   @override
@@ -199,30 +205,45 @@ class _HomePageState extends State<HomePage> {
                             final DocumentSnapshot<Map<String, dynamic>>
                                 document = documents[index];
                             final data = document.data()!;
-                            // Assuming 'document' is your DocumentSnapshot containing the image data
-                            String? imageDataString = document.data()?['image'];
+                            String? imageDataString = data['image'];
+                            bool isFavorite = data['isFavorite'] ??
+                                false; // Provide default value
 
-                            if (imageDataString != null) {
-                              // Decode base64 string to Uint8List
-                              Uint8List imageBytes =
-                                  base64Decode(imageDataString);
-
-                              return Card(
-                                child: ListTile(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (ctx) => Plans()));
-                                  },
-                                  leading: CircleAvatar(
-                                    backgroundImage: MemoryImage(imageBytes),
-                                  ),
-                                  title: Text(data['name']),
-                                  subtitle: Text(data['type']),
-                                  // Add more widgets or customize the ListTile as needed
+                            return Card(
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => ChecklistPage(
+                                          userid: widget.userid,
+                                          plantName: data['name'])));
+                                },
+                                leading: imageDataString != null
+                                    ? CircleAvatar(
+                                        backgroundImage: MemoryImage(
+                                            base64Decode(imageDataString)),
+                                      )
+                                    : null,
+                                title: Text(
+                                  data['name'],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              );
-                            }
+                                subtitle: Text(data['type']),
+                                trailing: IconButton(
+                                  icon: Icon(
+                                    isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: isFavorite ? Colors.green : null,
+                                  ),
+                                  onPressed: () {
+                                    _toggleFavorite(document);
+                                  },
+                                ),
+                              ),
+                            );
                           },
                         );
                       })),
