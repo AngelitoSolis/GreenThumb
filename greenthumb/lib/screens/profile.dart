@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:greenthumb/model/const.dart';
 import 'package:greenthumb/screens/favorite.dart';
 import 'package:greenthumb/screens/login.dart';
+import 'package:greenthumb/screens/tips.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -91,14 +92,6 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ProfileWidget(
-                        icon: Icons.person,
-                        title: 'My Profile',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.settings,
-                        title: 'Settings',
-                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -110,13 +103,15 @@ class ProfilePage extends StatelessWidget {
                           title: 'My Favorites',
                         ),
                       ),
-                      ProfileWidget(
-                        icon: Icons.chat,
-                        title: 'FAQs',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.share,
-                        title: 'Share',
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (ctx) => PlantTips()));
+                        },
+                        child: ProfileWidget(
+                          icon: Icons.tips_and_updates,
+                          title: 'Plants Tips',
+                        ),
                       ),
                       GestureDetector(
                         onTap: () async {

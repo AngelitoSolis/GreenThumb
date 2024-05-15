@@ -176,7 +176,7 @@ class _LoginState extends State<Login> {
                       TextButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => register()));
+                                builder: (ctx) => Register()));
                           },
                           child: Text(
                             "SignUp",

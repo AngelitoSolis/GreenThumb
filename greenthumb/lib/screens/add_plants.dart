@@ -112,6 +112,9 @@ class _AddPlansState extends State<AddPlans> {
                 child: Container(
                   width: double.infinity,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 13),
+                        backgroundColor: Colors.green),
                     onPressed: () async {
                       String plantName = _plantNameController.text;
                       String plantType = _plantTypeController.text;
@@ -168,7 +171,10 @@ class _AddPlansState extends State<AddPlans> {
                         );
                       }
                     },
-                    child: Text('Add Plant'),
+                    child: Text(
+                      'Add Plant',
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
                   ),
                 ),
               ),

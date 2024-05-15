@@ -35,6 +35,7 @@ class AddPlanScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Plan'),
+        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -57,7 +58,13 @@ class AddPlanScreen extends StatelessWidget {
                   Navigator.pop(context); // Go back to the previous screen
                 }
               },
-              child: Text('Add'),
+              child: Text(
+                'Add',
+                style: TextStyle(color: Colors.white, fontSize: 17),
+              ),
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 13),
+                  backgroundColor: Colors.green),
             ),
           ],
         ),
